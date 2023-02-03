@@ -12,6 +12,10 @@ const io = new Server(httpServer, {
   },
 });
 
+app.get('/', (req, res) => {
+  res.send('<h1>Hello, World!</h1>');
+});
+
 io.on('connection', (socket) => {
   console.log(`${socket.id} connected`);
 
@@ -21,6 +25,10 @@ io.on('connection', (socket) => {
 
   socket.on('control', (coords) => {
     socket.broadcast.emit('control', coords);
+  });
+
+  socket.on('click', (coords) => {
+    socket.broadcast.emit('click', coords);
   });
 });
 
